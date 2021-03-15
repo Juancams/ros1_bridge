@@ -88,12 +88,12 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("imu_1_to_2");
-  pub = node->create_publisher<sensor_msgs::msg::Imu>("/base_imu", rclcpp::SensorDataQoS());
+  pub = node->create_publisher<sensor_msgs::msg::Imu>("output", rclcpp::SensorDataQoS());
 
   // ROS 1 node and subscriber
   ros::init(argc, argv, "imu_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("/base_imu", 100, imuCallback);
+  ros::Subscriber sub = n.subscribe("input", 100, imuCallback);
 
   ros::spin();
 

@@ -63,12 +63,12 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("scan_1_to_2");
-  pub = node->create_publisher<sensor_msgs::msg::LaserScan>("/scan", rclcpp::SensorDataQoS());
+  pub = node->create_publisher<sensor_msgs::msg::LaserScan>("output", rclcpp::SensorDataQoS());
 
   // ROS 1 node and subscriber
   ros::init(argc, argv, "scan_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("/scan", 100, TFCallback);
+  ros::Subscriber sub = n.subscribe("input", 100, TFCallback);
 
   ros::spin();
 
