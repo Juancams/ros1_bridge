@@ -108,7 +108,7 @@ def generate_launch_description():
 
         Node(
             package='ros1_bridge',
-            node_executable='pc_1_to_2',
+            node_executable='pc2_1_to_2',
             output='screen',
             parameters=[],
             remappings=[

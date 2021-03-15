@@ -49,16 +49,17 @@ void twistCallback(const geometry_msgs::msg::Twist::SharedPtr ros2_msg)
 
 int main(int argc, char * argv[])
 {
-  // ROS 1 node and publisher
-  ros::init(argc, argv, "twist_2_to_1");
-  ros::NodeHandle n;
-  pub = n.advertise<geometry_msgs::Twist>("output", 100);
-
   // ROS 2 node and subscriber
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("twist_2_to_1");
   auto sub = node->create_subscription<geometry_msgs::msg::Twist>(
     "input", 100, twistCallback);
+
+
+  // ROS 1 node and publisher
+  ros::init(argc, argv, "twist_2_to_1");
+  ros::NodeHandle n;
+  pub = n.advertise<geometry_msgs::Twist>("output", 100);
 
   rclcpp::spin(node);
 
