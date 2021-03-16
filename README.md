@@ -2,6 +2,7 @@
 
 This package provides a network bridge which enables the exchange of messages between ROS 1 and ROS 2.
 
+
 The bridge is currently implemented in C++ as at the time the Python API for ROS 2 had not been developed.
 Because of this its support is limited to only the message/service types available at compile time of the bridge.
 The bridge provided with the prebuilt ROS 2 binaries includes support for common ROS interfaces (messages/services), such as the interface packages listed in the [ros2/common_interfaces repository](https://github.com/ros2/common_interfaces) and `tf2_msgs`.
