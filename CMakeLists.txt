@@ -16,6 +16,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rmw_implementation_cmake REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 # find ROS 1 packages
 set(cmake_extras_files cmake/find_ros1_package.cmake cmake/find_ros1_interface_packages.cmake)
@@ -40,6 +44,10 @@ if(NOT ros1_roscpp_FOUND)
 endif()
 
 find_ros1_package(std_msgs REQUIRED)
+find_ros1_package(tf2_msgs REQUIRED)
+find_ros1_package(nav_msgs REQUIRED)
+find_ros1_package(sensor_msgs REQUIRED)
+find_ros1_package(geometry_msgs REQUIRED)
 
 # find ROS 1 packages with messages / services
 include(cmake/find_ros1_interface_packages.cmake)
@@ -147,7 +155,12 @@ function(custom_executable target)
   if(ARG_ROS1_DEPENDENCIES)
     ament_target_dependencies(${target}
       "ros1_roscpp"
-      "ros1_std_msgs")
+      "ros1_std_msgs"
+      "ros1_tf2_msgs"
+      "ros1_sensor_msgs"
+      "ros1_nav_msgs"
+      "geometry_msgs"
+      )
   endif()
   if(ARG_DEPENDENCIES)
     add_dependencies(${target} ${ARG_DEPENDENCIES})
@@ -164,6 +177,31 @@ custom_executable(simple_bridge_2_to_1 "src/simple_bridge_2_to_1.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "std_msgs")
 
+custom_executable(tf_static_1_to_2 "src/tf_static_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "tf2_msgs")
+custom_executable(tf_1_to_2 "src/tf_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "tf2_msgs")
+custom_executable(scan_1_to_2 "src/scan_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "sensor_msgs")
+custom_executable(odom_1_to_2 "src/odom_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "nav_msgs")
+custom_executable(twist_2_to_1 "src/twist_2_to_1.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "geometry_msgs")
+custom_executable(pc2_1_to_2 "src/pc2_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "sensor_msgs")
+custom_executable(image_1_to_2 "src/image_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "sensor_msgs")
+custom_executable(imu_1_to_2 "src/imu_1_to_2.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "sensor_msgs")
+
 custom_executable(simple_bridge "src/simple_bridge.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "std_msgs")
@@ -178,7 +216,14 @@ ament_target_dependencies(${PROJECT_NAME}
   ${ros2_interface_packages}
   "rclcpp"
   "ros1_roscpp"
-  "ros1_std_msgs")
+  "ros1_std_msgs"
+  "ros1_tf2_msgs"
+  "ros1_sensor_msgs"
+  "ros1_nav_msgs"
+  "ros1_geometry_msgs"
+  )
+  
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
 
 install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION lib
@@ -255,9 +300,9 @@ if(TEST_ROS1_BRIDGE)
   find_package(launch_testing_ament_cmake REQUIRED)
 
   add_executable(test_ros1_client "test/test_ros1_client.cpp")
-  ament_target_dependencies(test_ros1_client "ros1_roscpp")
+  ament_target_dependencies(test_ros1_client "ros1_diagnostic_msgs" "ros1_roscpp")
   add_executable(test_ros1_server "test/test_ros1_server.cpp")
-  ament_target_dependencies(test_ros1_server "ros1_roscpp")
+  ament_target_dependencies(test_ros1_server "ros1_diagnostic_msgs" "ros1_roscpp")
   set(TEST_BRIDGE_ROS1_ENV "${ros1_roslaunch_PREFIX}/env.sh")
   set(TEST_BRIDGE_ROSCORE "${ros1_roslaunch_PREFIX}/bin/roscore")
   set(TEST_BRIDGE_ROS1_CLIENT "$<TARGET_FILE:test_ros1_client>")
