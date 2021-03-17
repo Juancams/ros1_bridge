@@ -40,7 +40,7 @@ void jointTrajectoryCallback(const trajectory_msgs::msg::JointTrajectory::Shared
   trajectory_msgs::JointTrajectory ros1_msg;
   ros1_msg.header.frame_id = ros2_msg->header.frame_id;
   ros1_msg.header.stamp.sec = ros2_msg->header.stamp.sec;
-  ros1_msg.header.stamp.nanosec = ros2_msg->header.stamp.nanosec;
+  ros1_msg.header.stamp.nsec = ros2_msg->header.stamp.nanosec;
   ros1_msg.joint_names = std::move(ros2_msg->joint_names);
 
   ros1_msg.points.resize(ros2_msg->points.size());
@@ -50,7 +50,7 @@ void jointTrajectoryCallback(const trajectory_msgs::msg::JointTrajectory::Shared
     ros1_msg.points[i].accelerations = std::move(ros2_msg->points[i].accelerations);
     ros1_msg.points[i].effort = std::move(ros2_msg->points[i].effort);
     ros1_msg.points[i].time_from_start.sec = ros2_msg->points[i].time_from_start.sec;
-    ros1_msg.points[i].time_from_start.nanosec = ros2_msg->points[i].time_from_start.nanosec;
+    ros1_msg.points[i].time_from_start.nsec = ros2_msg->points[i].time_from_start.nanosec;
   }
 
   pub.publish(ros1_msg);
@@ -62,7 +62,7 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("jointtrajectory_2_to_1");
   auto sub = node->create_subscription<trajectory_msgs::msg::JointTrajectory>(
-    "input", 100, jointtrajectoryCallback);
+    "input", 100, jointTrajectoryCallback);
 
 
   // ROS 1 node and publisher
