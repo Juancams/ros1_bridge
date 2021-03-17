@@ -116,4 +116,27 @@ def generate_launch_description():
                 ('output', 'xtion/depth_registered/points')
             ]
         ),
+
+        Node(
+            package='ros1_bridge',
+            node_executable='jointstates_1_to_2',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'joint_states'),
+                ('output', 'joint_states')
+            ]
+        ),
+
+        Node(
+            package='ros1_bridge',
+            node_executable='jointtrajectory_2_to_1',
+            output='screen',
+            parameters=[],
+            remappings=[
+                ('input', 'head_controller/command'),
+                ('output', 'head_controller/command')
+            ]
+        ),
+
     ])
