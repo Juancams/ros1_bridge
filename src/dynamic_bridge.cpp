@@ -144,6 +144,11 @@ void update_bridge(
   for (auto ros1_publisher : ros1_publishers) {
     // identify topics available as ROS 1 publishers as well as ROS 2 subscribers
     auto topic_name = ros1_publisher.first;
+
+    if (topic_name == "/mocap_environment") {
+      continue;
+    }
+
     std::string ros1_type_name = ros1_publisher.second;
     std::string ros2_type_name;
 
@@ -213,6 +218,11 @@ void update_bridge(
   for (auto ros2_publisher : ros2_publishers) {
     // identify topics available as ROS 1 subscribers as well as ROS 2 publishers
     auto topic_name = ros2_publisher.first;
+
+    if (topic_name == "/mocap_environment") {
+      continue;
+    }
+
     std::string ros2_type_name = ros2_publisher.second;
     std::string ros1_type_name;
 
