@@ -22,22 +22,22 @@
 # pragma clang diagnostic ignored "-Wunused-parameter"
 #endif
 #include "ros/ros.h"
-#include "mocap_control_msgs/MocapInfo.h"
+#include "device_control_msgs/DeviceInfo.h"
 #ifdef __clang__s
 # pragma clang diagnostic pop
 #endif
 
 // include ROS 2
 #include "rclcpp/rclcpp.hpp"
-#include "mocap_control_msgs/msg/mocap_info.hpp"
+#include "device_control_msgs/msg/device_info.hpp"
 
 
-rclcpp::Publisher<mocap_control_msgs::msg::MocapInfo>::SharedPtr pub;
+rclcpp::Publisher<device_control_msgs::msg::DeviceInfo>::SharedPtr pub;
 
 
-void MocapInfoCallback(boost::shared_ptr<mocap_control_msgs::MocapInfo> ros1_msg)
+void DeviceInfoCallback(boost::shared_ptr<device_control_msgs::DeviceInfo> ros1_msg)
 {
-  auto ros2_msg = std::make_unique<mocap_control_msgs::msg::MocapInfo>();
+  auto ros2_msg = std::make_unique<device_control_msgs::msg::DeviceInfo>();
 
   ros2_msg->system_source = ros1_msg->system_source;
   ros2_msg->ros_version_source = ros1_msg->ros_version_source;
@@ -51,13 +51,13 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("mocap_info_1_to_2");
-  pub = node->create_publisher<mocap_control_msgs::msg::MocapInfo>("mocap_environment",
+  pub = node->create_publisher<device_control_msgs::msg::DeviceInfo>("device_environment",
     rclcpp::QoS(1000).reliable().transient_local().keep_all());
 
   // ROS 1 node and subscriber
   ros::init(argc, argv, "mocap_info_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("mocap_environment", 1000, MocapInfoCallback);
+  ros::Subscriber sub = n.subscribe("device_environment", 1000, DeviceInfoCallback);
 
   ros::spin();
 
