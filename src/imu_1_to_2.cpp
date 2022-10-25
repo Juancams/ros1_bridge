@@ -43,7 +43,7 @@ public:
   : rclcpp_lifecycle::LifecycleNode(node_name,
       rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms))
   {
-    pub = this->create_publisher<sensor_msgs::msg::Imu>("/base_imu", 100);
+    pub = this->create_publisher<sensor_msgs::msg::Imu>("/rb1_base/imu/data", 100);
   }
 
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
@@ -152,7 +152,7 @@ int main(int argc, char * argv[])
   // ROS 1 node and subscriber
   ros::init(argc, argv, "imu_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("/base_imu", 100, imuCallback);
+  ros::Subscriber sub = n.subscribe("/rb1_base/imu/data", 100, imuCallback);
 
   while (rclcpp::ok() && ros::ok()) {
     ros::spinOnce();

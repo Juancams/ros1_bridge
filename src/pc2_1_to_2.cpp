@@ -43,7 +43,7 @@ public:
   : rclcpp_lifecycle::LifecycleNode(node_name,
       rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms))
   {
-    pub = this->create_publisher<sensor_msgs::msg::PointCloud2>("/xtion/depth_registered/points", 100);
+    pub = this->create_publisher<sensor_msgs::msg::PointCloud2>("/rb1_base/front_rgbd_camera/depth_registered/points", 100);
   }
 
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
@@ -135,7 +135,7 @@ int main(int argc, char * argv[])
   // ROS 1 node and subscriber
   ros::init(argc, argv, "pc2_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("/xtion/depth_registered/points", 100, TFCallback);
+  ros::Subscriber sub = n.subscribe("/rb1_base/front_rgbd_camera/depth_registered/points", 100, TFCallback);
 
   while (rclcpp::ok() && ros::ok()) {
     ros::spinOnce();

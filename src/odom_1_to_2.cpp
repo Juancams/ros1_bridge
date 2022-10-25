@@ -140,7 +140,7 @@ int main(int argc, char * argv[])
   // ROS 1 node and subscriber
   ros::init(argc, argv, "odom_1_to_2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("/mobile_base_controller/odom", 100, OdomCallback);
+  ros::Subscriber sub = n.subscribe("/rb1_base/robotnik_base_control/odom", 100, OdomCallback);
 
   while (rclcpp::ok() && ros::ok()) {
     ros::spinOnce();
