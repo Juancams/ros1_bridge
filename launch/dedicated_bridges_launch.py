@@ -213,7 +213,7 @@ def generate_launch_description():
 
         tf_static_1_to_2_node, tf_static_1_to_2_configure, tf_static_1_to_2_activate,
         tf_1_to_2_node, tf_1_to_2_configure, tf_1_to_2_activate,
-        scan_1_to_2_node, scan_1_to_2_configure, scan_1_to_2_activate,
+        # scan_1_to_2_node, scan_1_to_2_configure, scan_1_to_2_activate,
         odom_1_to_2_node, odom_1_to_2_configure, odom_1_to_2_activate,
         twist_2_to_1_node, twist_2_to_1_configure, twist_2_to_1_activate,
         pc2_1_to_2_node, pc2_1_to_2_configure, pc2_1_to_2_activate,
