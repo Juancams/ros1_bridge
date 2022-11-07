@@ -43,7 +43,7 @@ public:
   : rclcpp_lifecycle::LifecycleNode(node_name,
       rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms))
   {
-    pub = this->create_publisher<nav_msgs::msg::Odometry>("/odom", 100);
+    pub = this->create_publisher<nav_msgs::msg::Odometry>("/rb1_base/robotnik_base_control/odom", 100);
   }
 
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn

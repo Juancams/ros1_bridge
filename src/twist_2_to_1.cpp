@@ -41,7 +41,7 @@ public:
       rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms))
   {
     auto sub_ = this->create_subscription<geometry_msgs::msg::Twist>(
-    "/nav_vel", 100, std::bind(&LifecycleNode::twistCallback, this, std::placeholders::_1));
+    "/rb1_base/cmd_vel", 100, std::bind(&LifecycleNode::twistCallback, this, std::placeholders::_1));
   }
 
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
@@ -119,7 +119,7 @@ int main(int argc, char * argv[])
   // ROS 1 node and publisher
   ros::init(argc, argv, "twist_2_to_1");
   ros::NodeHandle n;
-  pub = n.advertise<geometry_msgs::Twist>("/nav_vel", 100);
+  pub = n.advertise<geometry_msgs::Twist>("/rb1_base/cmd_vel", 100);
   
   while (rclcpp::ok() && ros::ok()) {
     ros::spinOnce();
