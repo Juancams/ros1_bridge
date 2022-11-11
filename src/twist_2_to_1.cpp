@@ -101,8 +101,6 @@ public:
     pub.publish(ros1_msg);
   }
 
-  friend ros::Publisher pub;
-
 private:
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_;
 
