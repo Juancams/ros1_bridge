@@ -20,6 +20,8 @@ find_package(nav_msgs REQUIRED)
 find_package(tf2_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(control_msgs REQUIRED)
 
 # find ROS 1 packages
 set(cmake_extras_files cmake/find_ros1_package.cmake cmake/find_ros1_interface_packages.cmake)
@@ -48,6 +50,8 @@ find_ros1_package(tf2_msgs REQUIRED)
 find_ros1_package(nav_msgs REQUIRED)
 find_ros1_package(sensor_msgs REQUIRED)
 find_ros1_package(geometry_msgs REQUIRED)
+find_ros1_package(control_msgs REQUIRED)
+find_ros1_package(actionlib REQUIRED)
 
 # find ROS 1 packages with messages / services
 include(cmake/find_ros1_interface_packages.cmake)
@@ -163,6 +167,8 @@ function(custom_executable target)
       "ros1_sensor_msgs"
       "ros1_nav_msgs"
       "geometry_msgs"
+      "ros1_control_msgs"
+      "ros1_actionlib"
       )
   endif()
   if(ARG_DEPENDENCIES)
@@ -204,6 +210,9 @@ custom_executable(image_1_to_2 "src/image_1_to_2.cpp"
 custom_executable(imu_1_to_2 "src/imu_1_to_2.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "sensor_msgs")
+custom_executable(moveit_2_to_1 "src/action_bridge_follow_joint_trajectory_2_1.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES "rclcpp_action" "control_msgs")
 custom_executable(camera_info_1_to_2 "src/camera_info_1_to_2.cpp"
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES "sensor_msgs")
