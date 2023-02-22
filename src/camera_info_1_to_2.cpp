@@ -79,7 +79,7 @@ int main(int argc, char * argv[])
   // ROS 2 node and publisher
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("camera_info_1_to_2");
-  pub = node->create_publisher<sensor_msgs::msg::Image>("/xtion/rgb/camera_info", 100);
+  pub = node->create_publisher<sensor_msgs::msg::CameraInfo>("/xtion/rgb/camera_info", 100);
 
   // ROS 1 node and subscriber
   ros::init(argc, argv, "camera_info_1_to_2");
