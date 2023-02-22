@@ -166,7 +166,6 @@ function(custom_executable target)
       "ros1_tf2_msgs"
       "ros1_sensor_msgs"
       "ros1_nav_msgs"
-      "geometry_msgs"
       "ros1_control_msgs"
       "ros1_actionlib"
       )
