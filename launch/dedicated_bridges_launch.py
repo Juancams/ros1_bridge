@@ -73,6 +73,13 @@ def generate_launch_description():
             transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE,
             )
         )
+    
+    js_1_to_2_activate = launch.actions.EmitEvent(
+        event=launch_ros.events.lifecycle.ChangeState(
+            lifecycle_node_matcher=launch.events.matchers.matches_action(js_1_to_2_node),
+            transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE,
+            )
+        )
 
     scan_1_to_2_node = LifecycleNode(
             name='scan_1_to_2',
