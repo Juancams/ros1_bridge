@@ -73,6 +73,8 @@ def generate_launch_description():
             transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE,
             )
         )
+    
+
 
     scan_1_to_2_node = LifecycleNode(
             name='scan_1_to_2',
@@ -102,13 +104,6 @@ def generate_launch_description():
             output='screen',
             parameters=[])
     
-    js_1_to_2_node = LifecycleNode(
-            name='js_1_to_2',
-            package='ros1_bridge',
-            executable='js_1_to_2',
-            output='screen',
-            parameters=[])
-
     odom_1_to_2_configure = launch.actions.EmitEvent(
         event=launch_ros.events.lifecycle.ChangeState(
             lifecycle_node_matcher=launch.events.matchers.matches_action(odom_1_to_2_node),
@@ -276,6 +271,27 @@ def generate_launch_description():
             transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE,
             )
         )
+    
+    js_1_to_2_node = LifecycleNode(
+            name='js_1_to_2',
+            package='ros1_bridge',
+            executable='js_1_to_2',
+            output='screen',
+            parameters=[])
+    
+    js_1_to_2_configure = launch.actions.EmitEvent(
+        event=launch_ros.events.lifecycle.ChangeState(
+            lifecycle_node_matcher=launch.events.matchers.matches_action(js_1_to_2_node),
+            transition_id=lifecycle_msgs.msg.Transition.TRANSITION_CONFIGURE,
+            )
+        )
+    
+    js_1_to_2_activate = launch.actions.EmitEvent(
+        event=launch_ros.events.lifecycle.ChangeState(
+            lifecycle_node_matcher=launch.events.matchers.matches_action(js_1_to_2_node),
+            transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE,
+            )
+        )
 
     return LaunchDescription([
 
@@ -299,5 +315,5 @@ def generate_launch_description():
         odom_1_to_2_activate, twist_2_to_1_activate, pc2_1_to_2_activate,
         imu_1_to_2_activate, image_1_to_2_activate, camera_info_1_to_2_activate,
         moveit_2_to_1_node, depth_registered_1_to_2_activate, ir_image_1_to_2_activate,
-        js_1_to_2_node
+        js_1_to_2_node, js_1_to_2_configure, js_1_to_2_activate
         ])
